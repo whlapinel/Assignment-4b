@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayDeque;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * INSTRUCTIONS FOR ASSIGNMENT 4B
@@ -25,13 +22,13 @@ public class Main {
 
         ArrayDeque<Integer> bumpLine = new ArrayDeque<>(slots);
 
-        HashMap<Character, Integer> showRoom = new HashMap<>();
+        Map<Character, Integer> showRoom = new LinkedHashMap<>();
         // data structure for showroom?
 
-        showRoom.put('a', 0);
-        showRoom.put('b', 0);
-        showRoom.put('c', 0);
         showRoom.put('d', 0);
+        showRoom.put('c', 0);
+        showRoom.put('b', 0);
+        showRoom.put('a', 0);
 
         Scanner requestReader = null;
         try {
