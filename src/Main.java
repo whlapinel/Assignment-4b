@@ -18,11 +18,11 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         int slots = 4;
         int removedModel = 0;
+        //empty slot for tracking showroom slots
         Character emptySlot = null;
+        // hit log to track hits and fails
         ArrayList<Character> hitLog = new ArrayList<>();
-
         ArrayDeque<Integer> bumpLine = new ArrayDeque<>(slots);
-
         Map<Character, Integer> showRoom = new LinkedHashMap<>();
         // data structure for showroom?
 
