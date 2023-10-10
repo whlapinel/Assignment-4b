@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -19,7 +20,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         int slots = 4;
-        int removedModel;
+        int removedModel = 0;
+        Character emptySlot = null;
 
         ArrayDeque<Integer> bumpLine = new ArrayDeque<>(slots);
 
@@ -52,25 +54,36 @@ public class Main {
             } else {
                 // if not in showroom, log 'Fail'
                 System.out.println("model " + request + " is NOT in the showroom. epic FAIL!");
-                // who's next in line to get bumped
+                // if bumpLine is full, see who's next in line to get bumped
                 if (bumpLine.size() == 4) {
                     System.out.println("pulling next model from FIFO queue...");
                     removedModel = bumpLine.remove();
-                }
-                if (!bumpLine.isEmpty()) {
                     System.out.println("bumped model " + removedModel + " from FIFO queue.");
                     System.out.println("getting showroom slot for model " + removedModel + ".");
                     // obtain showroom slot
+                    for (Map.Entry<Character, Integer> entry : showRoom.entrySet()) {
+                        if (entry.getValue().equals(removedModel)) {
+                            emptySlot = entry.getKey();
+                        }
+                    }
                     System.out.println("replacing model " + removedModel + " with model " + request + ".");
-                    // remove model from showroom.
+                    showRoom.replace(emptySlot, request);
+                } else {
+                    // if bumpLine is not full, see which showroom slot is available (which has value of zero)
+                    for (Map.Entry<Character, Integer> entry : showRoom.entrySet()) {
+                        if (entry.getValue().equals(0)) {
+                            emptySlot = entry.getKey();
+                        }
+                    }
                 }
                 // add request to queue, "pull car from back-lot" and add to showroom
-                System.out.println("adding model " + request + " to showroom...");
+                System.out.println("adding model " + request + " to showroom slot " + emptySlot);
                 // add requested model to showroom here
+                showRoom.replace(emptySlot, request);
                 System.out.println("adding model " + request + " to back of FIFO queue...");
                 bumpLine.add(request);
                 System.out.println("bumpLine: " + bumpLine.toString());
-                System.out.println("Showroom: " + showRoom.values());
+                System.out.println("Showroom: " + showRoom.entrySet());
             }
         }
     }
