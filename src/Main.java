@@ -19,6 +19,7 @@ public class Main {
         int slots = 4;
         int removedModel = 0;
         Character emptySlot = null;
+        ArrayList<Character> hitLog = new ArrayList<>();
 
         ArrayDeque<Integer> bumpLine = new ArrayDeque<>(slots);
 
@@ -48,9 +49,11 @@ public class Main {
             if (showRoom.containsValue(request)) {
                 // if in showroom, log 'Hit'
                 System.out.println("model " + request + " is in the showroom. Yay! It's a HIT!");
+                hitLog.add('H');
             } else {
                 // if not in showroom, log 'Fail'
                 System.out.println("model " + request + " is NOT in the showroom. epic FAIL!");
+                hitLog.add('F');
                 // if bumpLine is full, see who's next in line to get bumped
                 if (bumpLine.size() == 4) {
                     System.out.println("pulling next model from FIFO queue...");
@@ -81,6 +84,7 @@ public class Main {
                 bumpLine.add(request);
                 System.out.println("bumpLine: " + bumpLine.toString());
                 System.out.println("Showroom: " + showRoom.entrySet());
+                System.out.println("Hit Log: " + hitLog);
             }
         }
     }
