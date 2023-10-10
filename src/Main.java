@@ -53,9 +53,11 @@ public class Main {
                 // if not in showroom, log 'Fail'
                 System.out.println("model " + request + " is NOT in the showroom. epic FAIL!");
                 // who's next in line to get bumped
-                if (bumpLine.peek() != null) {
+                if (bumpLine.size() == 4) {
                     System.out.println("pulling next model from FIFO queue...");
                     removedModel = bumpLine.remove();
+                }
+                if (!bumpLine.isEmpty()) {
                     System.out.println("bumped model " + removedModel + " from FIFO queue.");
                     System.out.println("getting showroom slot for model " + removedModel + ".");
                     // obtain showroom slot
