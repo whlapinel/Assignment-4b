@@ -18,6 +18,8 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         int slots = 4;
         int removedModel = 0;
+        int hitCount = 0;
+        int failCount = 0;
         //empty slot for tracking showroom slots
         Character emptySlot = null;
         // hit log to track hits and fails
@@ -50,10 +52,12 @@ public class Main {
                 // if in showroom, log 'Hit'
                 System.out.println("model " + request + " is in the showroom. Yay! It's a HIT!");
                 hitLog.add('H');
+                hitCount++;
             } else {
                 // if not in showroom, log 'Fail'
                 System.out.println("model " + request + " is NOT in the showroom. epic FAIL!");
                 hitLog.add('F');
+                failCount++;
                 // if bumpLine is full, see who's next in line to get bumped
                 if (bumpLine.size() == 4) {
                     System.out.println("pulling next model from FIFO queue...");
@@ -85,6 +89,8 @@ public class Main {
                 System.out.println("bumpLine: " + bumpLine.toString());
                 System.out.println("Showroom: " + showRoom.entrySet());
                 System.out.println("Hit Log: " + hitLog);
+                System.out.printf("hit count: %d \n", hitCount);
+                System.out.printf("fail count: %d", failCount);
             }
         }
     }
