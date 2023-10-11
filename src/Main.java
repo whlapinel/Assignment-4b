@@ -20,6 +20,7 @@ public class Main {
         int removedModel = 0;
         int hitCount = 0;
         int failCount = 0;
+        int requestNo = 0;
         //empty slot for tracking showroom slots
         Character emptySlot = null;
         // hit log to track hits and fails
@@ -40,7 +41,10 @@ public class Main {
             throw new RuntimeException(e);
         }
         while (requestReader.hasNextInt()) {
-            System.out.println("getting customer request...");
+            System.out.println();
+            System.out.println();
+            ++requestNo;
+            System.out.printf("getting customer request #%d...\n", requestNo);
 
             int request = requestReader.nextInt();
             System.out.println("request: model " + request);
@@ -86,12 +90,12 @@ public class Main {
                 showRoom.replace(emptySlot, request);
                 System.out.println("adding model " + request + " to back of FIFO queue...");
                 bumpLine.add(request);
-                System.out.println("bumpLine: " + bumpLine.toString());
-                System.out.println("Showroom: " + showRoom.entrySet());
-                System.out.println("Hit Log: " + hitLog);
-                System.out.printf("hit count: %d \n", hitCount);
-                System.out.printf("fail count: %d", failCount);
             }
+            System.out.println("bumpLine: " + bumpLine.toString());
+            System.out.println("Showroom: " + showRoom.entrySet());
+            System.out.println("Hit Log: " + hitLog);
+            System.out.printf("hit count: %d\n", hitCount);
+            System.out.printf("fail count: %d\n", failCount);
         }
     }
 }
